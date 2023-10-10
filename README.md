@@ -1,6 +1,6 @@
 ## Plugin Messenger - Paper
 
-This plugin was written for my [Velocity plugin development tutorial series](https://www.youtube.com/playlist?list=PL51GdsaNM19JlY0t6KNyi4vtkC5Q-4-F4) and designed to be paired with the Plugin Messenger - Velocity plugin.
+This plugin was written for my [Velocity plugin development tutorial series](https://www.youtube.com/playlist?list=PL51GdsaNM19JlY0t6KNyi4vtkC5Q-4-F4) and designed to be paired with the [Plugin Messenger - Velocity]([Plugin Messenger - Paper](https://github.com/TerrorByteTW/PluginMessenger-Paper) plugin.
 Plugin messaging has been around since Minecraft 1.1, which was released in 2012, over 11 years ago!
 
 It's very simple, it implements two commands:
