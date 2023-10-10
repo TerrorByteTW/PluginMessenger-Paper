@@ -1,0 +1,11 @@
+name: PluginMessenger
+version: '${project.version}'
+main: org.reprogle.pluginmessenger.PluginMessenger
+api-version: '1.20'
+commands:
+  broadcast:
+    description: Broadcasts a message to every server on the network
+    usage: /broadcast
+  creeper:
+    description: Spawn a creeper at all players on all servers
+    usage: /creeper
