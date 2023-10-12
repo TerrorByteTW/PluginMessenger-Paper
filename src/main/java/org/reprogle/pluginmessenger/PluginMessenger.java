@@ -3,6 +3,7 @@ package org.reprogle.pluginmessenger;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.bukkit.Location;
@@ -38,6 +39,11 @@ public final class PluginMessenger extends JavaPlugin implements CommandExecutor
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if(!(sender instanceof Player player)) {
+            sender.sendMessage(Component.text("You must be a player to use this command, as plugin messages rely on the player connection"));
+            return false;
+        }
+
         if(command.getName().equals("broadcast")) {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("MessageRaw");
@@ -52,22 +58,22 @@ public final class PluginMessenger extends JavaPlugin implements CommandExecutor
             String message = builder.toString().trim();
             out.writeUTF(GsonComponentSerializer.gson().serialize(MiniMessage.miniMessage().deserialize(message)));
 
-            this.getServer().sendPluginMessage(this, "BungeeCord", out.toByteArray());
-            sender.sendMessage("Broadcasting your message!");
+            player.sendPluginMessage(this, "BungeeCord", out.toByteArray());
+            player.sendMessage("Broadcasting your message!");
 
         } else if (command.getName().equals("creeper")){
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("RequestCreeper");
 
-            this.getServer().sendPluginMessage(this, "demo:main", out.toByteArray());
-            sender.sendMessage("Requesting creepers be spawned near all players on all servers");
+            player.sendPluginMessage(this, "demo:main", out.toByteArray());
+            player.sendMessage("Requesting creepers be spawned near all players on all servers");
         }
 
         return true;
     }
 
     @Override
-    public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, @NotNull byte[] bytes) {
+    public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, byte[] bytes) {
         if(!channel.equals("demo:main")) return;
 
         ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
